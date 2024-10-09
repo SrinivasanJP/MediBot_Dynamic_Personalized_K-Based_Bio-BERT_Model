@@ -1,27 +1,26 @@
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from transformers import BertTokenizer, BertForMaskedLM
 import torch
 
-# Load pre-trained GPT model and tokenizer
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2LMHeadModel.from_pretrained('gpt2')
+# Load pre-trained BioBERT model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('dmis-lab/biobert-base-cased-v1.1')
+model = BertForMaskedLM.from_pretrained('dmis-lab/biobert-base-cased-v1.1')
 
 # Function to generate chatbot response
 def generate_response(prompt, max_length=150):
-
     inputs = tokenizer.encode(prompt, return_tensors="pt")
     outputs = model.generate(
-        inputs, 
-        max_length=max_length, 
-        num_return_sequences=1, 
-        pad_token_id=tokenizer.eos_token_id, 
-        temperature=0.7, 
-        top_p=0.9, 
-        do_sample=True, 
+        inputs,
+        max_length=max_length,
+        num_return_sequences=1,
+        pad_token_id=tokenizer.eos_token_id,  # Note: Bert doesn't have EOS token by default
+        temperature=0.7,
+        top_p=0.9,
+        do_sample=True,
     )
-    
+
     # Decode the generated tokens to a string
     generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
+
     return generated_text
 
 # Medical knowledge base (simple version for demo)
@@ -72,7 +71,7 @@ def chatbot():
             advice = medical_advice(symptoms)
             print(f"Chatbot: \n{advice}")
         else:
-            # Generate a response using GPT model
+            # Generate a response using BioBERT model (this would require some adaptation for MLM task)
             response = generate_response(user_input)
             print(f"Chatbot: {response}")
 

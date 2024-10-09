@@ -1,11 +1,41 @@
-text,label
-"Patient diagnosed with Type 2 Diabetes. Prescribed Metformin.",Diabetes Management
-"Blood pressure is elevated. Recommend increasing dosage of Lisinopril.",Hypertension Management
-"MRI shows a herniated disc at L4-L5. Consider surgical consultation.",Spinal Surgery
-"Follow-up required for abnormal liver enzyme levels.",Liver Function
-"Patient reports increased shortness of breath. Check for possible COPD exacerbation.",COPD Management
-"Hemoglobin levels are low. Suggest iron supplements.",Anemia Management
-"Cholesterol levels are high. Initiate statin therapy.",Hyperlipidemia
-"Signs of early-stage kidney disease. Advise on low-protein diet.",Kidney Function
-"Recommend regular blood sugar monitoring.",Diabetes Monitoring
-"Patient experiencing joint pain. Consider Rheumatology referral.",Arthritis Management
+text,summary
+What should I do if I have a headache?,"Headaches are often caused by stress, dehydration, or tension. Rest and drink fluids."
+"I have a fever, what should I do?",Fever can indicate an infection. Drink fluids and consult a doctor if the fever persists.
+Why am I feeling tired all the time?,"Tiredness can be due to lack of sleep, anemia, or poor diet. Improve your sleep and nutrition."
+What causes a sore throat?,A sore throat is often caused by viral infections. Drink warm fluids and rest.
+How can I treat a cold?,"Common colds are treated with rest, hydration, and over-the-counter medications for symptoms."
+What should I do if I feel dizzy?,Dizziness can result from dehydration or low blood pressure. Sit down and drink water.
+"I have a cough, what does it mean?","A cough can indicate a cold or allergies. If persistent, consult a doctor for proper diagnosis."
+How to treat nausea?,Nausea can be treated with rest and ginger tea. Seek medical help if it persists.
+What can I do for muscle pain?,"Muscle pain can be relieved with rest, gentle stretching, and applying heat."
+Why do I have chest pain?,Chest pain could signal a heart issue or muscle strain. Seek immediate medical help for severe pain.
+How to deal with constipation?,Constipation can be treated by increasing fiber intake and drinking more water.
+"I feel anxious, what should I do?",Anxiety can be managed with relaxation techniques like deep breathing or meditation.
+How to handle a migraine?,Migraines can be treated with rest in a dark room and pain relief medication. Consult a doctor for frequent episodes.
+"I have back pain, any suggestions?","Back pain can be treated with rest, good posture, and stretching exercises."
+Why do I feel short of breath?,Shortness of breath can indicate asthma or a heart condition. Consult a doctor if it persists.
+How to relieve indigestion?,Indigestion can be relieved by avoiding heavy meals and eating slowly. Consider antacids if needed.
+What should I do for diarrhea?,Stay hydrated and avoid solid food for a few hours. Consult a doctor if it lasts more than a day.
+"I have blurred vision, what should I do?",Blurred vision can be caused by eye strain or underlying conditions. Consult an eye doctor if it persists.
+Why do I have joint pain?,Joint pain can be caused by arthritis or injury. Apply heat or ice and take anti-inflammatory medication.
+What to do for skin rashes?,Skin rashes may result from allergies or irritants. Keep the area clean and avoid further irritation.
+How to manage weight loss?,Unintended weight loss can indicate an underlying condition. Consult a doctor for proper evaluation.
+What can cause hair loss?,"Hair loss can be due to stress, hormonal changes, or genetics. Consult a doctor for severe cases."
+What should I do if I have high blood pressure?,"High blood pressure can be managed with lifestyle changes like exercise, reducing salt intake, and medication."
+How to treat ear pain?,Ear pain can be caused by an infection. Use pain relief medication and see a doctor if it persists.
+What to do for a toothache?,A toothache may be a sign of decay. Use pain relief medication and see a dentist for evaluation.
+How to handle allergies?,Allergies can be managed by avoiding triggers and using antihistamines.
+"I feel bloated, what should I do?",Bloating can be relieved by avoiding carbonated drinks and eating smaller meals.
+How to deal with frequent urination?,Frequent urination can be caused by diabetes or an infection. Consult a doctor for diagnosis.
+What can I do for a sore back?,"A sore back can be relieved by rest, heat therapy, and gentle stretching exercises."
+What to do if I have acid reflux?,Acid reflux can be treated with dietary changes and antacids. Avoid spicy or acidic foods.
+Why am I feeling dizzy after standing up?,This can be due to low blood pressure. Stand up slowly and drink water.
+What to do for dry skin?,Dry skin can be treated with moisturizers and drinking more water. Avoid hot showers.
+"I have insomnia, any suggestions?","Insomnia can be improved with better sleep hygiene, such as regular sleep schedules and limiting caffeine."
+What causes frequent headaches?,"Frequent headaches can be due to stress, poor posture, or dehydration. Stay hydrated and reduce stress."
+How to relieve a stiff neck?,A stiff neck can be relieved by applying heat and performing gentle stretches.
+What should I do if I feel nauseous?,Rest and drink ginger tea to soothe nausea. Seek medical advice if it persists.
+"I feel faint, what could it be?","Fainting can be caused by dehydration or low blood sugar. Sit down, hydrate, and rest."
+How to treat a stomach ache?,"Stomach aches can be relieved with rest, a light diet, and staying hydrated. Consult a doctor if persistent."
+What should I do for an itchy skin?,Itchy skin can be caused by allergies. Use moisturizer and avoid scratching.
+"I feel a burning sensation in my chest, what is it?",A burning sensation in the chest can indicate acid reflux. Avoid spicy foods and consult a doctor if it persists.

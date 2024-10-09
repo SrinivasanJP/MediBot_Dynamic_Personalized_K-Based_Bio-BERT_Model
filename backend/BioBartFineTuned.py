@@ -1,28 +1,47 @@
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
-import torch
+import os
+import zipfile
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-# Load pre-trained GPT model and tokenizer
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2LMHeadModel.from_pretrained('gpt2')
+# Define the path to your zip file and the extraction directory
+zip_file_path = 'biobart-finetuned.zip'
+extraction_dir = './biobart-finetuned'
 
-# Function to generate chatbot response
+# Unzip the file if it hasn't been extracted yet
+if not os.path.exists(extraction_dir):
+    print("Model extraction")
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        zip_ref.extractall(extraction_dir)
+
+    # Load the fine-tuned BioBART model and tokenizer
+    model = AutoModelForSeq2SeqLM.from_pretrained(extraction_dir)
+    tokenizer = AutoTokenizer.from_pretrained(extraction_dir)
+    print("LOG: Model Loaded...")
+
+# Function to generate chatbot response using the fine-tuned model
 def generate_response(prompt, max_length=150):
+    # Prepare the input context for the model
+    context = f"Provide medical advice based on the following user input: {prompt}"
+    
+    # Prepare the input for the model
+    inputs = tokenizer(context, return_tensors="pt", padding=True)
 
-    inputs = tokenizer.encode(prompt, return_tensors="pt")
+    # Generate output
     outputs = model.generate(
-        inputs, 
-        max_length=max_length, 
-        num_return_sequences=1, 
-        pad_token_id=tokenizer.eos_token_id, 
-        temperature=0.7, 
-        top_p=0.9, 
-        do_sample=True, 
+        inputs['input_ids'],
+        max_length=max_length,
+        num_return_sequences=1,
+        pad_token_id=tokenizer.eos_token_id,
+        temperature=0.7,  # Adjust for variability
+        top_p=0.9,
+        do_sample=True,
+        return_dict_in_generate=True  # Added for better debugging
     )
-    
+
     # Decode the generated tokens to a string
-    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    
-    return generated_text
+    generated_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
+
+    return generated_text.strip()
+
 
 # Medical knowledge base (simple version for demo)
 medical_knowledge_base = {
@@ -72,7 +91,7 @@ def chatbot():
             advice = medical_advice(symptoms)
             print(f"Chatbot: \n{advice}")
         else:
-            # Generate a response using GPT model
+            # Generate a response using the fine-tuned BioBART model
             response = generate_response(user_input)
             print(f"Chatbot: {response}")
 

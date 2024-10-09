@@ -1,0 +1,5 @@
+.venv/
+bertV2/
+biobart-finetuned/
+results/
+*.zip
