@@ -1,16 +1,9 @@
 import json
-import torch
-import warnings
-import speech_recognition as sr
-import pyttsx3
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
+import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-
+import warnings
 warnings.filterwarnings('ignore')
-
-# Initialize text-to-speech engine
-engine = pyttsx3.init()
-
 # Load pre-trained GPT-2 model and tokenizer
 gpt2_tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 gpt2_model = GPT2LMHeadModel.from_pretrained('gpt2')
@@ -26,6 +19,7 @@ def load_medical_knowledge_base(file_path):
     with open(file_path, 'r') as f:
         return json.load(f)
 
+# Load medical knowledge base
 medical_knowledge_base = load_medical_knowledge_base('knowledgeBase.json')
 
 # Function to generate chatbot response using GPT-2
@@ -40,9 +34,10 @@ def generate_response(prompt, max_length=150):
         top_p=0.9, 
         do_sample=True, 
     )
-    return gpt2_tokenizer.decode(outputs[0][0], skip_special_tokens=True)
+    generated_text = gpt2_tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return generated_text
 
-# Function to classify symptoms using BioBART
+# Function to classify symptoms using BioBERT
 def classify_symptoms(inputs):
     with torch.no_grad():
         device = next(model.parameters()).device
@@ -58,9 +53,11 @@ def classify_symptoms(inputs):
             num_return_sequences=1  
         )
         
-        return [tokenizer.decode(output, skip_special_tokens=True).strip().lower() for output in outputs]
+        generated_texts = [tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
+        
+        return [text.strip().lower() for text in generated_texts]  
 
-# Function to provide medical advice
+# Function to provide medical advice based on symptoms
 def medical_advice(symptoms):
     advice = ""
     for symptom in symptoms:
@@ -70,56 +67,29 @@ def medical_advice(symptoms):
             advice += f"Symptom: {symptom}\nAdvice: No specific advice found. Please consult a doctor.\n\n"
     return advice
 
-# Function to take voice input
-def get_voice_input():
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("\nListening...")
-        recognizer.adjust_for_ambient_noise(source)
-        try:
-            audio = recognizer.listen(source, timeout=5)
-            text = recognizer.recognize_google(audio)
-            print(f"\nYou (Voice Input): {text}")
-            return text
-        except sr.UnknownValueError:
-            print("\nSorry, I couldn't understand that. Please try again.")
-            return None
-        except sr.RequestError:
-            print("\nError with the speech recognition service. Try again later.")
-            return None
-
-# Function to speak output
-def speak(text):
-    print(f"Chatbot: {text}")
-    engine.say(text)
-    engine.runAndWait()
-
 # Main chatbot loop
 def chatbot():
-    speak("Welcome to the Biomedical Chatbot! How can I assist you today?")
-    speak("Note: This chatbot provides general medical advice. Please consult a healthcare professional for accurate diagnosis.")
-
+    print("Welcome to the Biomedical Chatbot! How can I assist you today?")
+    print("Note: This chatbot provides general medical advice. Please consult a healthcare professional for accurate diagnosis.")
+    
     while True:
-        print("\nSay something (or type if you prefer). Say 'exit' to quit.")
-        user_input = get_voice_input()
-
-        if not user_input:
-            continue
+        user_input = input("\nYou: ")
         
         if user_input.lower() in ["exit", "quit", "bye"]:
-            speak("Thank you for using the chatbot. Stay healthy!")
+            print("Chatbot: Thank you for using the chatbot. Stay healthy!")
             break
         
         symptoms = classify_symptoms(user_input)
-        speak("Detected Symptoms: " + ", ".join(symptoms))
-
+        print("Symptom: " + " ".join(symptoms))
+        
         if symptoms and any(symptom in medical_knowledge_base for symptom in symptoms):
             advice = medical_advice(symptoms)
-            speak(advice)
-        # else:
-        #     response = generate_response(user_input)
-        #     speak(response)
+            print(f"Chatbot: \n{advice}")
+        else:
+            response = generate_response(user_input)
+            print(f"Chatbot: {response}")
 
 # Run the chatbot
 if __name__ == "__main__":
     chatbot()
+
